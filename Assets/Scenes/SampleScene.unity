@@ -571,6 +571,7 @@ MonoBehaviour:
   movementSpeed: 5
   jumpHeight: 2.1
   jumpDuration: 0.75
+  jumpForceModifier: 1.5
   baseJumpForce: 2.8
 --- !u!1001 &890514629
 Prefab:

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 3;
     public float jumpHeight = 2.1f;//how high she can jump
     public float jumpDuration = 0.5f;//how long it takes her to get to max jump height
+    public float jumpForceModifier = 0;
 
     //Static Variables
     private float jumpDecay = 0;
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         //Set base jump force
-        baseJumpForce = (jumpHeight / jumpDuration);// + Physics2D.gravity.magnitude;
+        baseJumpForce = (jumpHeight * jumpForceModifier) * (jumpHeight / jumpDuration);
     }
 
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
             }
             if (Time.time <= jumpStartTime + jumpDuration)
             {
-                //jumpForce = (1 - ((Time.time - jumpStartTime) / jumpDuration)) * baseJumpForce;
+                jumpForce = (1 - ((Time.time - jumpStartTime) / jumpDuration)) * baseJumpForce;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
             }
         }
