@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 3;
     public float jumpHeight = 2.1f;//how high she can jump
     public float jumpDuration = 0.5f;//how long it takes her to get to max jump height
-    public float jumpForceModifier = 0;
+    public float jumpForceModifier = 0;//modifier to adjust the jump force curve
 
     //Static Variables
     private float jumpDecay = 0;
-    public float baseJumpForce = 0;
+    private float baseJumpForce = 0;
     //Runtime vars
     private float jumpForce;
     private float jumpStartTime;
