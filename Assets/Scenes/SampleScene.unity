@@ -460,7 +460,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 794134746}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: adf48ce7be23f764599ba01d5aa67c99, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -567,9 +567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4f511ba8420c84887d36bbc5d31b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  jumpForce: 2
-  jumpDuration: 1.1
+  movementSpeed: 100
+  baseJumpForce: 400
+  jumpDuration: 0.75
 --- !u!1001 &890514629
 Prefab:
   m_ObjectHideFlags: 0
