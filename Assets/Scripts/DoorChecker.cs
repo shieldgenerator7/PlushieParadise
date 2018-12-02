@@ -37,7 +37,8 @@ public class DoorChecker : MonoBehaviour
 
     void checkForPlushie(GameObject go)
     {
-        if (go == plushieKey)
+        if (go == plushieKey
+            || (plushieKey == null && go.CompareTag("Plushie")))
         {
             activate(true);
         }

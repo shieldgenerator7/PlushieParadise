@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 773709019}
   m_Layer: 0
   m_Name: plushie bear
-  m_TagString: Untagged
+  m_TagString: Plushie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
