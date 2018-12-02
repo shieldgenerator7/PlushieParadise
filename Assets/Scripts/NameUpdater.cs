@@ -18,7 +18,16 @@ public class NameUpdater : MonoBehaviour {
         }
         inputField.onEndEdit.AddListener(acceptName);
 	}
-	
+
+    public static void getNameForNewPlushie(GameObject newPlushie)
+    {
+        instance.inputField.gameObject.SetActive(true);
+        instance.inputField.ActivateInputField();
+        instance.plushie = newPlushie;
+        //Pause game
+        Time.timeScale = 0;
+    }
+
     void acceptName(string name)
     {
         plushie.name = name;
@@ -27,11 +36,4 @@ public class NameUpdater : MonoBehaviour {
         Time.timeScale = 1;
     }
 
-	public static void getNameForNewPlushie(GameObject newPlushie)
-    {
-        instance.inputField.gameObject.SetActive(true);
-        instance.plushie = newPlushie;
-        //Pause game
-        Time.timeScale = 0;
-    }
 }
