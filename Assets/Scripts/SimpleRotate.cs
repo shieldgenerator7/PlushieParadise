@@ -5,6 +5,7 @@ using UnityEngine;
 public class SimpleRotate : MonoBehaviour {
 
     public float rotateSpeed = 3;
+    public bool spinWhilePaused = false;
 
 	// Use this for initialization
 	void Start () {
