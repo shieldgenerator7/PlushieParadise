@@ -120,11 +120,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
+        Collider2D coll2d = GetComponent<Collider2D>();
         for (int i = 0; i < collision.contactCount; i++)
         {
             ContactPoint2D cp2d = collision.GetContact(i);
-            bool contactBelow = cp2d.point.y <= bc2d.bounds.min.y;
+            bool contactBelow = cp2d.point.y <= coll2d.bounds.min.y;
             if (contactBelow)
             {
                 grounded = true;

@@ -399,31 +399,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &794134747
-BoxCollider2D:
+--- !u!70 &794134747
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 794134746}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: adf48ce7be23f764599ba01d5aa67c99, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.017284289, y: -0.025220156}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.34571412, y: 0.8157315}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.0176626, y: -0.018026114}
+  m_Size: {x: 0.34522423, y: 0.84158254}
+  m_Direction: 0
 --- !u!50 &794134748
 Rigidbody2D:
   serializedVersion: 4
