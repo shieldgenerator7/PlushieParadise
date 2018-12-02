@@ -65,8 +65,19 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetButtonDown("Fire1"))
                 {
                     lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+                    plushies[lastUsedPlushieIndex].GetComponent<BoxCollider2D>().enabled = false;
+                    Rigidbody2D plushieRB2D = plushies[lastUsedPlushieIndex].GetComponent<Rigidbody2D>();
+                    plushieRB2D.velocity = Vector2.zero;
+                    plushieRB2D.angularVelocity = 0;
                 }
                 plushies[lastUsedPlushieIndex].transform.position = plushieSpawnPoint.transform.position;
+            }
+        }
+        else if (Input.GetButtonUp("Fire1"))
+        {
+            if (plushies.Count > 0)
+            {
+                plushies[lastUsedPlushieIndex].GetComponent<BoxCollider2D>().enabled = true;
             }
         }
         if (Input.GetButtonDown("Fire2"))
