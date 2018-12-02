@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212645678462951596}
   - component: {fileID: 50390956860008042}
   - component: {fileID: 61241107227388050}
+  - component: {fileID: 114755408608479670}
   m_Layer: 0
   m_Name: crusher
   m_TagString: Untagged
@@ -56,7 +57,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -85,8 +86,20 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.98, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &114755408608479670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1170657271160374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4b5d214f7ef9548beccda88b4986c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
 --- !u!212 &212645678462951596
 SpriteRenderer:
   m_ObjectHideFlags: 1

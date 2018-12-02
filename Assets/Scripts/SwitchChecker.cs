@@ -5,7 +5,7 @@ using UnityEngine;
 public class SwitchChecker : MonoBehaviour
 {
 
-    public GameObject poweredObject;//the object to power
+    public List<PoweredObject> poweredObjects;//the object to power
 
     public Sprite unpressedSprite;
     public Sprite pressedSprite;
@@ -16,11 +16,15 @@ public class SwitchChecker : MonoBehaviour
         get { return pressed; }
         set
         {
+            bool changed = pressed != value;
             pressed = value;
-            Sprite spriteToUse = (pressed) ? pressedSprite : unpressedSprite;
-            if (sr.sprite != spriteToUse)
+            if (changed)
             {
-                sr.sprite = spriteToUse;
+                sr.sprite = (pressed) ? pressedSprite : unpressedSprite;
+                foreach (PoweredObject po in poweredObjects)
+                {
+                    po.Active = pressed;
+                }
             }
         }
     }
