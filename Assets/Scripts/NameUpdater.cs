@@ -23,11 +23,15 @@ public class NameUpdater : MonoBehaviour {
     {
         plushie.name = name;
         inputField.gameObject.SetActive(false);
+        //Resume game
+        Time.timeScale = 1;
     }
 
 	public static void getNameForNewPlushie(GameObject newPlushie)
     {
         instance.inputField.gameObject.SetActive(true);
         instance.plushie = newPlushie;
+        //Pause game
+        Time.timeScale = 0;
     }
 }
