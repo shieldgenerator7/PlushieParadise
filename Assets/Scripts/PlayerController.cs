@@ -91,6 +91,10 @@ public class PlayerController : MonoBehaviour
                 plushie.GetComponent<Rigidbody2D>().velocity = throwDirection * throwForce;
             }
         }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public void addPlushie(GameObject plushie)
