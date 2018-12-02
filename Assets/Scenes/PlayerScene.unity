@@ -392,6 +392,7 @@ GameObject:
   - component: {fileID: 794134748}
   - component: {fileID: 794134747}
   - component: {fileID: 794134751}
+  - component: {fileID: 794134752}
   m_Layer: 0
   m_Name: sephone
   m_TagString: Player
@@ -515,6 +516,18 @@ MonoBehaviour:
   plushieSpawnPoint: {fileID: 1671367014}
   plushieContainer: {fileID: 667269287}
   plushies: []
+--- !u!114 &794134752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 794134746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523d9898e53ba6047ae30dd6e072f528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squishTolerancePercent: 0.7
 --- !u!1 &916914339
 GameObject:
   m_ObjectHideFlags: 0
