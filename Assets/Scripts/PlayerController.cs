@@ -41,6 +41,14 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         rb2d.velocity = new Vector2(horizontal * movementSpeed, rb2d.velocity.y);
+        //Flip sprite
+        if (horizontal != 0)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = (horizontal > 0) ? 1 : -1;
+            transform.localScale = scale;
+        }
+        //Jump
         if (Input.GetButton("Jump"))
         {
             if (jumpStartTime == 0)
@@ -88,7 +96,9 @@ public class PlayerController : MonoBehaviour
                 lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
                 GameObject plushie = plushies[lastUsedPlushieIndex];
                 plushie.transform.position = plushieSpawnPoint.transform.position;
-                plushie.GetComponent<Rigidbody2D>().velocity = throwDirection * throwForce;
+                Vector2 throwVector = throwDirection * throwForce;
+                throwVector.x *= transform.localScale.x;
+                plushie.GetComponent<Rigidbody2D>().velocity = throwVector;
             }
         }
         if (Input.GetKey(KeyCode.Escape))
