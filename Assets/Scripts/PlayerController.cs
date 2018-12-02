@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     //Runtime vars
     private float jumpForce;
     private float jumpStartTime;
+    private bool grounded = true;
 
     [SerializeField]
     private List<GameObject> plushies = new List<GameObject>();
@@ -51,15 +52,19 @@ public class PlayerController : MonoBehaviour
         //Jump
         if (Input.GetButton("Jump"))
         {
-            if (jumpStartTime == 0)
+            if (grounded)
             {
-                jumpStartTime = Time.time;
-                jumpForce = baseJumpForce;
-            }
-            if (Time.time <= jumpStartTime + jumpDuration)
-            {
-                jumpForce = (1 - ((Time.time - jumpStartTime) / jumpDuration)) * baseJumpForce;
-                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+                if (jumpStartTime == 0)
+                {
+                    jumpStartTime = Time.time;
+                    jumpForce = baseJumpForce;
+                    grounded = false;
+                }
+                if (Time.time <= jumpStartTime + jumpDuration)
+                {
+                    jumpForce = (1 - ((Time.time - jumpStartTime) / jumpDuration)) * baseJumpForce;
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+                }
             }
         }
         else if (Input.GetButtonUp("Jump"))
@@ -111,5 +116,19 @@ public class PlayerController : MonoBehaviour
     {
         plushies.Add(plushie);
         plushie.transform.parent = plushieContainer.transform;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint2D cp2d = collision.GetContact(i);
+            bool contactBelow = cp2d.point.y <= bc2d.bounds.min.y;
+            if (contactBelow)
+            {
+                grounded = true;
+            }
+        }
     }
 }
