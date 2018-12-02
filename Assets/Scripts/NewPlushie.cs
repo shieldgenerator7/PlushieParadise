@@ -10,6 +10,7 @@ public class NewPlushie : MonoBehaviour {
         if (collision.gameObject.CompareTag("Player"))
         {
             NameUpdater.getNameForNewPlushie(gameObject);
+            collision.gameObject.GetComponent<PlayerController>().addPlushie(gameObject);
             Destroy(this);
         }
     }

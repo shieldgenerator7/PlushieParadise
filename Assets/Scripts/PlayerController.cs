@@ -9,13 +9,20 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 2.1f;//how high she can jump
     public float jumpDuration = 0.5f;//how long it takes her to get to max jump height
     public float jumpForceModifier = 0;//modifier to adjust the jump force curve
+    public Vector2 throwDirection = Vector2.one;//the direction that you throw the plushie
+    public float throwForce = 3;//how fast to throw the plushie
 
-    //Static Variables
-    private float jumpDecay = 0;
+    public GameObject plushieSpawnPoint;//point the plushie jumps to right before being thrown
+    
+    //Constant Variables
     private float baseJumpForce = 0;
     //Runtime vars
     private float jumpForce;
     private float jumpStartTime;
+
+    [SerializeField]
+    private List<GameObject> plushies = new List<GameObject>();
+    private int lastUsedPlushieIndex = -1;//the index of the last plushie used
 
     //Components
     private Rigidbody2D rb2d;
@@ -51,5 +58,28 @@ public class PlayerController : MonoBehaviour
             jumpStartTime = 0;
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Min(0, rb2d.velocity.y));
         }
+        if (Input.GetButton("Fire1"))
+        {
+            if (plushies.Count > 0)
+            {
+                lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+                plushies[lastUsedPlushieIndex].transform.position = plushieSpawnPoint.transform.position;
+            }
+        }
+        if (Input.GetButton("Fire2"))
+        {
+            if (plushies.Count > 0)
+            {
+                lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+                GameObject plushie = plushies[lastUsedPlushieIndex];
+                plushie.transform.position = plushieSpawnPoint.transform.position;
+                plushie.GetComponent<Rigidbody2D>().velocity = throwDirection * throwForce; 
+            }
+        }
+    }
+
+    public void addPlushie(GameObject plushie)
+    {
+        plushies.Add(plushie);
     }
 }
