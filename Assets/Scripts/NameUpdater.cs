@@ -31,6 +31,7 @@ public class NameUpdater : MonoBehaviour {
     void acceptName(string name)
     {
         plushie.name = name;
+        inputField.text = "";
         inputField.gameObject.SetActive(false);
         //Resume game
         Time.timeScale = 1;
