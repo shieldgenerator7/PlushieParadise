@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 773709015}
   - component: {fileID: 773709019}
   m_Layer: 0
-  m_Name: plushie bear
+  m_Name: green plushie bear
   m_TagString: Plushie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
