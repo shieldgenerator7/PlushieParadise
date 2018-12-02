@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class NameUpdater : MonoBehaviour
 {
-
     public Canvas plushieCanvas;
     public InputField inputField;
     public Text messageText;
+
+    public GameObject plushieRevealStar;
 
     private string originalMessage;
 
@@ -27,9 +28,13 @@ public class NameUpdater : MonoBehaviour
 
     public static void getNameForNewPlushie(GameObject newPlushie)
     {
+        //Canvas
         instance.plushieCanvas.gameObject.SetActive(true);
         instance.inputField.ActivateInputField();
         instance.plushie = newPlushie;
+        //Reveal Star
+        instance.plushieRevealStar.SetActive(true);
+        instance.plushieRevealStar.transform.position = newPlushie.transform.position;
         //Update Message Text
         instance.originalMessage = instance.messageText.text;
         instance.messageText.text += newPlushie.name + "!";
@@ -40,9 +45,12 @@ public class NameUpdater : MonoBehaviour
     void acceptName(string name)
     {
         plushie.name = name;
+        //Canvas
         inputField.text = "";
         messageText.text = originalMessage;
         plushieCanvas.gameObject.SetActive(false);
+        //Reveal Star
+        instance.plushieRevealStar.SetActive(false);
         //Resume game
         Time.timeScale = 1;
     }
