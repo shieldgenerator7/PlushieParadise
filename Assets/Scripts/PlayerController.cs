@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
                 lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
                 GameObject plushie = plushies[lastUsedPlushieIndex];
                 plushie.transform.position = plushieSpawnPoint.transform.position;
-                plushie.GetComponent<Rigidbody2D>().velocity = throwDirection * throwForce; 
+                plushie.GetComponent<Rigidbody2D>().velocity = throwDirection * throwForce;
             }
         }
     }
