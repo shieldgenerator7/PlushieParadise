@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayerScene.unity
     guid: 28bae9b27168a4940a41da3feb36b37a
   - enabled: 1
-    path: Assets/Scenes/Level1-Bear.unity
+    path: Assets/Scenes/Level1.unity
     guid: a472baff42c638342a73a0d5e67a5f6a
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: ee81439657abe0a4eaa764876425b8a9
   m_configObjects: {}

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorChecker : MonoBehaviour {
+public class DoorChecker : MonoBehaviour
+{
 
     [Tooltip("The plushie that opens this door.")]
     public GameObject plushieKey;
     public GameObject door;//the part of the door that swings
+    public string nextLevelName;
 
     bool open = false;
     bool Open
@@ -24,14 +26,18 @@ public class DoorChecker : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject == plushieKey)
-        {
-            activate(true);
-        }
+        checkForPlushie(collision.gameObject);
+        checkForPlayer(collision.gameObject);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == plushieKey)
+        checkForPlushie(collision.gameObject);
+        checkForPlayer(collision.gameObject);
+    }
+
+    void checkForPlushie(GameObject go)
+    {
+        if (go == plushieKey)
         {
             activate(true);
         }
@@ -40,5 +46,19 @@ public class DoorChecker : MonoBehaviour {
     void activate(bool active)
     {
         Open = active;
+    }
+
+    void checkForPlayer(GameObject go)
+    {
+        if (Open)
+        {
+            if (go.CompareTag("Player"))
+            {
+                if (nextLevelName != null && nextLevelName != "")
+                {
+                    GameManager.loadNextLevel(nextLevelName);
+                }
+            }
+        }
     }
 }
