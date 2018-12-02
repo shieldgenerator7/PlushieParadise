@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float throwForce = 3;//how fast to throw the plushie
 
     public GameObject plushieSpawnPoint;//point the plushie jumps to right before being thrown
-    
+
     //Constant Variables
     private float baseJumpForce = 0;
     //Runtime vars
@@ -62,11 +62,14 @@ public class PlayerController : MonoBehaviour
         {
             if (plushies.Count > 0)
             {
-                lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+                }
                 plushies[lastUsedPlushieIndex].transform.position = plushieSpawnPoint.transform.position;
             }
         }
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButtonDown("Fire2"))
         {
             if (plushies.Count > 0)
             {
