@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    [Range(-1,10)]
+    public int firstLevelIndex = 1;
     public string firstLevelName = "Level1";
     public GameObject plushiePen;
 
@@ -16,6 +17,10 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (firstLevelIndex > -1)
+        {
+            firstLevelName = "Level" + firstLevelIndex;
+        }
         currentLevelName = firstLevelName;
         SceneManager.LoadScene(firstLevelName, LoadSceneMode.Additive);
         if (instance == null)

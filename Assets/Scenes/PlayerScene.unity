@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0308324a090311c4aa2a5cdf28d7d716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLevelIndex: 3
   firstLevelName: Level1
   plushiePen: {fileID: 2023230993}
 --- !u!4 &146963465
