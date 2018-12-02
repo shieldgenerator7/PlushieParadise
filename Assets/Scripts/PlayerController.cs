@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float throwForce = 3;//how fast to throw the plushie
 
     public GameObject plushieSpawnPoint;//point the plushie jumps to right before being thrown
+    public GameObject plushieContainer;//the object that will store all the plushies
 
     //Constant Variables
     private float baseJumpForce = 0;
@@ -95,5 +96,6 @@ public class PlayerController : MonoBehaviour
     public void addPlushie(GameObject plushie)
     {
         plushies.Add(plushie);
+        plushie.transform.parent = plushieContainer.transform;
     }
 }
