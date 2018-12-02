@@ -16,7 +16,7 @@ public class SimpleRotate : MonoBehaviour {
         if (gameObject.activeSelf)
         {
             Vector3 angles = transform.eulerAngles;
-            angles.z += rotateSpeed * Time.deltaTime;
+            angles.z += rotateSpeed * Time.unscaledDeltaTime;
             transform.eulerAngles = angles;
         }
 	}
