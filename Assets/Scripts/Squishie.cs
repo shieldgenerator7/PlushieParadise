@@ -20,77 +20,94 @@ public class Squishie : MonoBehaviour
 
     public void squish(Collider2D impendingColl, bool upDown)
     {
-        List<Vector2> pushDirs = new List<Vector2>();
-        RaycastHit2D[] rch2ds = new RaycastHit2D[10];
-        int count = coll2d.Cast(Vector2.zero, rch2ds, 0, true);
-        for (int i = 0; i < count; i++)
+        List<float> aboveRightDirs = new List<float>();
+        List<float> belowLeftDirs = new List<float>();
+        float distanceToCheck = 1.0f;
+        checkDirection(upDown, ref aboveRightDirs, ref belowLeftDirs, Vector2.up, distanceToCheck);
+        checkDirection(upDown, ref aboveRightDirs, ref belowLeftDirs, -Vector2.up, distanceToCheck);
+        //If only pushing in one direction
+        if (aboveRightDirs.Count == 0 || belowLeftDirs.Count == 0)
         {
-            RaycastHit2D rch2d = rch2ds[i];
-            if (true || coll2d.OverlapPoint(rch2d.point))
-            {
-                Vector2 pushDir = (Vector2)transform.position - rch2d.point;
-                if (upDown)
-                {
-                    pushDir.x = 0;
-                }
-                else
-                {
-                    pushDir.y = 0;
-                }
-                if (pushDir == Vector2.zero)
-                {
-                    Rigidbody2D rchRbd2d = rch2d.collider.gameObject.GetComponent<Rigidbody2D>();
-                    if (rchRbd2d)
-                    {
-                        pushDir = rchRbd2d.velocity;
-                    }
-                }
-                pushDirs.Add(pushDir);
-            }
-        }
-        float pushDirTotalPos = 0;
-        float pushDirTotalNeg = 0;
-        foreach (Vector2 pushDir in pushDirs)
-        {
-            float pushValue = 0;
-            if (upDown)
-            {
-                pushValue = pushDir.y;
-            }
-            else
-            {
-                pushValue = pushDir.x;
-            }
-            if (pushValue > 0)
-            {
-                pushDirTotalPos += Mathf.Abs(pushValue);
-            }
-            if (pushValue < 0)
-            {
-                pushDirTotalNeg += Mathf.Abs(pushValue);
-            }
-        }
-        if (pushDirTotalPos == 0 || pushDirTotalNeg == 0)
-        {
-            //we're all good, it's only pushing in one direction
-            //Vector2 pos = transform.position;
-            //float moveAmount = pushDirTotalPos - pushDirTotalNeg;
-            //if (upDown)
-            //{
-            //    //transform.position += Vector3.up * moveAmount;
-            //}
-            //else
-            //{
-            //    transform.position += Vector3.right * moveAmount;
-            //}
+            //we'll be moved automatically, so do nothing
         }
         else
         {
-            //we're squished and need to reduce size
-            float squishAmount = 0.1f;
-            Vector3 scale = transform.localScale;
-            scale.y -= squishAmount;
-            transform.localScale = scale;
+            //We're squished and need to reduce size
+            //Find min and max of the area we can be in
+            float min = belowLeftDirs[0];
+            float max = aboveRightDirs[0];
+            foreach (float f in belowLeftDirs)
+            {
+                min = Mathf.Max(min, f);
+            }
+            foreach (float f in aboveRightDirs)
+            {
+                max = Mathf.Min(max, f);
+            }
+            //Find percent of current bounds that it is
+            float percent = 1;
+            if (upDown)
+            {
+                percent = Mathf.Abs(max - min) / coll2d.bounds.size.y;
+            }
+            else
+            {
+                percent = Mathf.Abs(max - min) / coll2d.bounds.size.x;
+            }
+            if (percent < 1)
+            {
+                //Squish
+                Vector3 scale = transform.localScale;
+                scale.y *= percent;
+                transform.localScale = scale;
+            }
+        }
+    }
+    void checkDirection(bool upDown, ref List<float> aboveRightDirs, ref List<float> belowLeftDirs, Vector2 direction, float distance = 0.1f)
+    {
+        RaycastHit2D[] rch2ds = new RaycastHit2D[10];
+        int count = coll2d.Cast(direction, rch2ds, distance, true);
+        for (int i = 0; i < count; i++)
+        {
+            RaycastHit2D rch2d = rch2ds[i];
+            //Don't process our own colliders
+            if (rch2d.collider.gameObject == gameObject)
+            {
+                continue;
+            }
+            //Factor in the velocity of the object
+            Vector2 velocity = Vector2.zero;
+            Rigidbody2D rchRb2d = rch2d.collider.gameObject.GetComponent<Rigidbody2D>();
+            if (rchRb2d)
+            {
+                velocity = rchRb2d.velocity;
+            }
+            Vector2 dir = rch2d.point + velocity;
+            //Add the object's collision point to the appropriate list
+            if (upDown)
+            {
+                if (rch2d.point.y < transform.position.y
+                    && rch2d.collider.bounds.max.y < transform.position.y)
+                {
+                    belowLeftDirs.Add(dir.y);
+                }
+                else if (rch2d.collider.bounds.min.y > transform.position.y)
+                {
+                    aboveRightDirs.Add(dir.y);
+                }
+            }
+            else
+            {
+                if (rch2d.point.x < transform.position.x
+                    && rch2d.collider.bounds.max.x < transform.position.x)
+                {
+                    belowLeftDirs.Add(dir.x);
+                }
+                else if (rch2d.collider.bounds.min.y > transform.position.y)
+                {
+                    aboveRightDirs.Add(dir.x);
+                }
+            }
         }
     }
 }
