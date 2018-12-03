@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plushieKey: {fileID: 0}
   door: {fileID: 1436481032295570}
+  nextLevelName: 
 --- !u!212 &212419450317123340
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -171,9 +172,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1977001195
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -20
   m_Sprite: {fileID: 21300000, guid: 15eb57753c4aa1846819e1f45df766eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -217,9 +218,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1977001195
-  m_SortingLayer: -1
-  m_SortingOrder: 10
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -15
   m_Sprite: {fileID: 21300000, guid: c3008a3b34ade584bba412f267ae5915, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
