@@ -28,6 +28,7 @@ public class Squishie : MonoBehaviour
         private set { alive = value; }
     }
     private bool onSpikes = false;
+    private Vector2 spikePosition;
 
     private Collider2D coll2d;
 
@@ -36,6 +37,17 @@ public class Squishie : MonoBehaviour
         coll2d = GetComponent<Collider2D>();
         originalSize = transform.localScale;
         originalBoundsSize = coll2d.bounds.size;
+    }
+
+    private void Update()
+    {
+        if (onSpikes && !Alive)
+        {
+            if ((Vector2)transform.position != spikePosition)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, spikePosition, Time.deltaTime);
+            }
+        }
     }
 
     public void checkSquish(Collider2D impendingColl, bool upDown)
@@ -189,7 +201,7 @@ public class Squishie : MonoBehaviour
                 onSpikes = true;
                 if (!canStandOnSpikes)
                 {
-                    spikeKill(collision.gameObject);
+                    spikeKill(collision.gameObject, collision.GetContact(0).point);
                 }
             }
         }
@@ -197,15 +209,18 @@ public class Squishie : MonoBehaviour
         {
             if (collision.GetContact(0).point.y >= coll2d.bounds.max.y)
             {
-                spikeKill(collision.gameObject);
+                spikeKill(collision.gameObject, collision.GetContact(0).point);
             }
         }
     }
 
-    void spikeKill(GameObject spikes)
+    void spikeKill(GameObject spikes, Vector2 contactPoint)
     {
         kill();
-        transform.position = spikes.transform.position;
-        //transform.up = Vector2.up;
+        coll2d.enabled = true;
+        //Set spikePosition so the sprite will move there over time
+        spikePosition = spikes.transform.position + 
+            (Vector3.up * (spikes.GetComponent<Collider2D>().bounds.size.y / 4));
+        spikePosition.x = contactPoint.x;
     }
 }
