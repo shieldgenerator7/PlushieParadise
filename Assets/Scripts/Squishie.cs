@@ -75,15 +75,8 @@ public class Squishie : MonoBehaviour
             {
                 continue;
             }
-            //Factor in the velocity of the object
-            Vector2 velocity = Vector2.zero;
-            Rigidbody2D rchRb2d = rch2d.collider.gameObject.GetComponent<Rigidbody2D>();
-            if (rchRb2d)
-            {
-                velocity = rchRb2d.velocity;
-            }
-            Vector2 dir = rch2d.point + velocity;
             //Add the object's collision point to the appropriate list
+            Vector2 dir = rch2d.point;
             if (upDown)
             {
                 if (rch2d.point.y < transform.position.y
