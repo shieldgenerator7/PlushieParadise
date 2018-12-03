@@ -128,7 +128,7 @@ MonoBehaviour:
   requiredToContinue: 0
   squishTolerancePercent: 0.5
   squishResistance: 0.9
-  overlapAllowance: 0.1
+  overlapAllowance: 0.2
   canStandOnSpikes: 1
 --- !u!212 &212849895375066752
 SpriteRenderer:
