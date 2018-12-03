@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
                 plushies[lastUsedPlushieIndex].GetComponent<BoxCollider2D>().enabled = true;
             }
         }
-        if (Input.GetButtonDown("Fire2"))
+        else if (Input.GetButtonDown("Fire2"))
         {
             if (plushies.Count > 0)
             {
