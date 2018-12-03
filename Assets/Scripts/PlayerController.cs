@@ -28,11 +28,13 @@ public class PlayerController : MonoBehaviour
 
     //Components
     private Rigidbody2D rb2d;
+    private Collider2D coll2d;
 
     // Use this for initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        coll2d = GetComponent<Collider2D>();
         //Set base jump force
         baseJumpForce = (jumpHeight * jumpForceModifier) * (jumpHeight / jumpDuration);
     }
@@ -106,6 +108,10 @@ public class PlayerController : MonoBehaviour
                 plushie.GetComponent<Rigidbody2D>().velocity = throwVector;
             }
         }
+        if (Input.GetButtonDown("Reset"))
+        {
+            GameManager.resetLevel();
+        }
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
@@ -116,6 +122,26 @@ public class PlayerController : MonoBehaviour
     {
         plushies.Add(plushie);
         plushie.transform.parent = plushieContainer.transform;
+    }
+
+    public void removePlushie(Plushie plushie)
+    {
+        int indexOf = plushies.IndexOf(plushie.gameObject);
+        plushies.Remove(plushie.gameObject);
+        if (indexOf < lastUsedPlushieIndex)
+        {
+            lastUsedPlushieIndex--;
+        }
+    }
+    public void resetPlayer()
+    {
+        rb2d.gravityScale = 1;
+        rb2d.isKinematic = false;
+        grounded = true;
+        coll2d.enabled = true;
+        Vector3 scale = transform.localScale;
+        scale.y = 1;
+        transform.localScale = scale;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
