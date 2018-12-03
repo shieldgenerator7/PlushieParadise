@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61585103164603466}
   - component: {fileID: 114152927283291798}
   - component: {fileID: 114391010029528684}
+  - component: {fileID: 114870071984947620}
   m_Layer: 0
   m_Name: plushie
   m_TagString: Plushie
@@ -113,6 +114,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeName: plushie
   givenName: 
+--- !u!114 &114870071984947620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515570970192730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523d9898e53ba6047ae30dd6e072f528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredToContinue: 0
+  squishTolerancePercent: 0.5
+  squishResistance: 0
 --- !u!212 &212849895375066752
 SpriteRenderer:
   m_ObjectHideFlags: 1

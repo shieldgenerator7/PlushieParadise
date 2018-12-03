@@ -85,6 +85,11 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        //Reset Squishies
+        foreach (Squishie squishie in FindObjectsOfType<Squishie>())
+        {
+            squishie.resetAlive();
+        }
         //Remove delegate
         SceneManager.sceneLoaded -= continueResetLevel;
     }

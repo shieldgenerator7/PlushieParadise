@@ -11,6 +11,7 @@ public class Squishie : MonoBehaviour
 
     //Runtime constants
     private Vector2 originalSize;
+    private Vector2 originalBoundsSize;
     //Runtime vars
     private bool alive = true;
     public bool Alive
@@ -25,6 +26,7 @@ public class Squishie : MonoBehaviour
     {
         coll2d = GetComponent<Collider2D>();
         originalSize = transform.localScale;
+        originalBoundsSize = coll2d.bounds.size;
     }
 
     public void checkSquish(Collider2D impendingColl, bool upDown)
@@ -57,19 +59,28 @@ public class Squishie : MonoBehaviour
             float percent = 1;
             if (upDown)
             {
-                percent = Mathf.Abs(max - min) / coll2d.bounds.size.y;
+                percent = Mathf.Abs(max - min) / originalBoundsSize.y;
             }
             else
             {
-                percent = Mathf.Abs(max - min) / coll2d.bounds.size.x;
+                percent = Mathf.Abs(max - min) / originalBoundsSize.x;
             }
             if (percent < 1)
             {
                 //Squish
-                Vector3 scale = transform.localScale;
-                scale.y *= percent;
-                transform.localScale = scale;
-                checkSquish(scale.y);
+                if (upDown) {
+                    Vector3 scale = transform.localScale;
+                    scale.y = Mathf.Min(scale.y, originalSize.y * percent);
+                    transform.localScale = scale;
+                    checkSquish(scale.y);
+                }
+                else
+                {
+                    Vector3 scale = transform.localScale;
+                    scale.x = originalSize.x * percent;
+                    transform.localScale = scale;
+                    checkSquish(scale.x);
+                }
             }
         }
     }
@@ -140,9 +151,7 @@ public class Squishie : MonoBehaviour
         rb2d.isKinematic = false;
         rb2d.gravityScale = 1;
         alive = true;
-        Vector3 scale = transform.localScale;
-        scale.y = 1;
-        transform.localScale = scale;
+        transform.localScale = originalSize;
         if (requiredToContinue)
         {
             Time.timeScale = 1;
