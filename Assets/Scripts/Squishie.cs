@@ -12,7 +12,7 @@ public class Squishie : MonoBehaviour
     public float squishResistance = 0;//what percent of the squish it can resist
 
     //Runtime constants
-    private Vector2 originalSize;
+    private Vector3 originalSize;
     private Vector2 originalBoundsSize;
     //Runtime vars
     private bool alive = true;
