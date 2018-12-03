@@ -72,7 +72,8 @@ public class Squishie : MonoBehaviour
             if (percent < 1)
             {
                 //Factor in squish resistance
-                percent = percent + ((1 - percent) * squishResistance);
+                float currentPercent = transform.localScale.y / originalSize.y;
+                percent = Mathf.Lerp(percent, currentPercent, squishResistance);
                 //Squish
                 if (upDown) {
                     Vector3 scale = transform.localScale;
