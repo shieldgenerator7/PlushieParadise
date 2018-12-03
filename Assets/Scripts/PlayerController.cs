@@ -124,10 +124,12 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < collision.contactCount; i++)
         {
             ContactPoint2D cp2d = collision.GetContact(i);
-            bool contactBelow = cp2d.point.y <= coll2d.bounds.min.y;
-            if (contactBelow)
+            bool contactBelow = cp2d.point.y <= transform.position.y;
+            bool contactBetweenX = cp2d.point.x > coll2d.bounds.min.x && cp2d.point.x < coll2d.bounds.max.x;
+            if (contactBelow && contactBetweenX)
             {
                 grounded = true;
+                break;
             }
         }
     }
