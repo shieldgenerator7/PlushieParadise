@@ -6,12 +6,16 @@ public class Squishie : MonoBehaviour
 {
     public bool requiredToContinue = false;//true if its death would cause the game to end
 
+    [Header("Crusher")]
     [Range(0, 1)]
     public float squishTolerancePercent = 0.7f;//what percent of its height it can get to before being squished
     [Range(0, 1)]
     public float squishResistance = 0;//what percent of the squish it can resist
     [Range(0, 1)]
     public float overlapAllowance = 0.1f;//used to keep side swipes from crushing
+
+    [Header("Spikes")]
+    public bool canStandOnSpikes = false;
 
     //Runtime constants
     private Vector3 originalSize;
@@ -23,6 +27,7 @@ public class Squishie : MonoBehaviour
         get { return alive; }
         private set { alive = value; }
     }
+    private bool onSpikes = false;
 
     private Collider2D coll2d;
 
@@ -142,17 +147,22 @@ public class Squishie : MonoBehaviour
     {
         if (sizeY < originalSize.y * squishTolerancePercent)
         {
-            coll2d.enabled = false;
-            Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-            rb2d.isKinematic = true;
-            rb2d.velocity = Vector2.zero;
-            rb2d.angularVelocity = 0;
-            rb2d.gravityScale = 0;
-            alive = false;
-            if (requiredToContinue)
-            {
-                Time.timeScale = 0;
-            }
+            kill();
+        }
+    }
+
+    public void kill()
+    {
+        coll2d.enabled = false;
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        rb2d.isKinematic = true;
+        rb2d.velocity = Vector2.zero;
+        rb2d.angularVelocity = 0;
+        rb2d.gravityScale = 0;
+        alive = false;
+        if (requiredToContinue)
+        {
+            Time.timeScale = 0;
         }
     }
     public void resetAlive()
@@ -167,5 +177,35 @@ public class Squishie : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+        onSpikes = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spikes"))
+        {
+            if (collision.GetContact(0).point.y <= coll2d.bounds.min.y + 0.05f)
+            {
+                onSpikes = true;
+                if (!canStandOnSpikes)
+                {
+                    spikeKill(collision.gameObject);
+                }
+            }
+        }
+        else if (onSpikes)
+        {
+            if (collision.GetContact(0).point.y >= coll2d.bounds.max.y)
+            {
+                spikeKill(collision.gameObject);
+            }
+        }
+    }
+
+    void spikeKill(GameObject spikes)
+    {
+        kill();
+        transform.position = spikes.transform.position;
+        //transform.up = Vector2.up;
     }
 }

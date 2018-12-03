@@ -129,6 +129,7 @@ MonoBehaviour:
   squishTolerancePercent: 0.5
   squishResistance: 0.9
   overlapAllowance: 0.1
+  canStandOnSpikes: 1
 --- !u!212 &212849895375066752
 SpriteRenderer:
   m_ObjectHideFlags: 1
