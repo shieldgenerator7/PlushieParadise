@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+                    lastUsedPlushieIndex = getNextPlushieIndex();
                     plushies[lastUsedPlushieIndex].GetComponent<BoxCollider2D>().enabled = false;
                     Rigidbody2D plushieRB2D = plushies[lastUsedPlushieIndex].GetComponent<Rigidbody2D>();
                     plushieRB2D.velocity = Vector2.zero;
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             if (plushies.Count > 0)
             {
-                lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+                lastUsedPlushieIndex = getNextPlushieIndex();
                 GameObject plushie = plushies[lastUsedPlushieIndex];
                 plushie.transform.position = plushieSpawnPoint.transform.position;
                 Vector2 throwVector = throwDirection * throwForce;
@@ -126,6 +126,20 @@ public class PlayerController : MonoBehaviour
                 plushie.GetComponent<Rigidbody2D>().velocity = throwVector;
             }
         }
+    }
+
+    public int getNextPlushieIndex()
+    {
+        for (int i = 0; i < plushies.Count; i++)
+        {
+            //here, i is just used to keep the loop from being infinite
+            lastUsedPlushieIndex = (lastUsedPlushieIndex + 1) % plushies.Count;
+            if (plushies[lastUsedPlushieIndex].GetComponent<Squishie>().Alive)
+            {
+                break;
+            }
+        }
+        return lastUsedPlushieIndex;
     }
 
     public void addPlushie(GameObject plushie)

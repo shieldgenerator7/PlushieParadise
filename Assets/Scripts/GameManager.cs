@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         }
         //Put plushies "away"
         instance.putAwayPlushies();
+        cleanPlushies();
         //Update current
         instance.currentLevelName = current = levelName;
         //Load current level
@@ -55,9 +56,31 @@ public class GameManager : MonoBehaviour
             plushie.transform.position = plushiePen.transform.position;
         }
     }
+    /// <summary>
+    /// Remove any dead plushies
+    /// </summary>
+    static void cleanPlushies()
+    {
+        PlayerController pc = GameObject.FindObjectOfType<PlayerController>();
+        foreach (Plushie plushie in GameObject.FindObjectsOfType<Plushie>())
+        {
+            Squishie squishie = plushie.GetComponent<Squishie>();
+            if (!squishie.Alive)
+            {
+                pc.removePlushie(plushie);
+                Destroy(plushie.gameObject);
+            }
+        }
+    }
 
     public static void resetLevel()
     {
+        //Reset Squishies
+        foreach (Squishie squishie in FindObjectsOfType<Squishie>())
+        {
+            squishie.resetAlive();
+        }
+        //Unload and reload the current level
         loadNextLevel(instance.currentLevelName);
         //Add delegate for things that need the scene to be already loaded
         SceneManager.sceneLoaded += instance.continueResetLevel;
@@ -84,11 +107,6 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-        }
-        //Reset Squishies
-        foreach (Squishie squishie in FindObjectsOfType<Squishie>())
-        {
-            squishie.resetAlive();
         }
         //Remove delegate
         SceneManager.sceneLoaded -= continueResetLevel;
