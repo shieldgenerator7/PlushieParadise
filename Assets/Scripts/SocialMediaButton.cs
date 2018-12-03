@@ -25,7 +25,16 @@ public abstract class SocialMediaButton : MonoBehaviour
 
         if (sr.bounds.Contains(mousePos))
         {
-            postToSocialMedia();
+            sr.sprite = mouseOverSprite;
+            if (Input.GetMouseButtonDown(0))
+            {
+                sr.sprite = clickSprite;
+                postToSocialMedia();
+            }
+        }
+        else if (sr.sprite != normalSprite)
+        {
+            sr.sprite = normalSprite;
         }
     }
 
@@ -39,6 +48,12 @@ public abstract class SocialMediaButton : MonoBehaviour
     public string getDescription()
     {
         Plushie[] plushieList = getPlushieList();
+        //Account for no plushies
+        if (plushieList.Length == 0)
+        {
+            return "I don't have any favorite plushies.";
+        }
+        //Normal amount of plushies
         string nounAndVerb = (plushieList.Length > 1) ? "plushies are" : "plushie is";
         string desc = "my favorite " + nounAndVerb + " ";
         bool onlyTwo = plushieList.Length == 2;
