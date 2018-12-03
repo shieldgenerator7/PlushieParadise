@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForceModifier = 0;//modifier to adjust the jump force curve
     public Vector2 throwDirection = Vector2.one;//the direction that you throw the plushie
     public float throwForce = 3;//how fast to throw the plushie
+    public string ability1 = "Call Plushie";
+    public string ability2 = "Throw Plushie";
 
     public GameObject plushieSpawnPoint;//point the plushie jumps to right before being thrown
     public GameObject plushieContainer;//the object that will store all the plushies
@@ -102,11 +104,11 @@ public class PlayerController : MonoBehaviour
             jumpStartTime = 0;
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Min(0, rb2d.velocity.y));
         }
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton(ability1))
         {
             if (hasPlushies())
             {
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown(ability1))
                 {
                     lastUsedPlushieIndex = getNextPlushieIndex();
                     plushies[lastUsedPlushieIndex].GetComponent<BoxCollider2D>().enabled = false;
@@ -117,14 +119,14 @@ public class PlayerController : MonoBehaviour
                 plushies[lastUsedPlushieIndex].transform.position = plushieSpawnPoint.transform.position;
             }
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp(ability1))
         {
             if (hasPlushies())
             {
                 plushies[lastUsedPlushieIndex].GetComponent<BoxCollider2D>().enabled = true;
             }
         }
-        else if (Input.GetButtonDown("Fire2"))
+        else if (Input.GetButtonDown(ability2))
         {
             if (hasPlushies())
             {

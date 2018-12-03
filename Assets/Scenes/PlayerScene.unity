@@ -604,6 +604,8 @@ MonoBehaviour:
   jumpForceModifier: 0.8
   throwDirection: {x: 1, y: 1}
   throwForce: 3
+  ability1: Call Plushie
+  ability2: Throw Plushie
   plushieSpawnPoint: {fileID: 1671367014}
   plushieContainer: {fileID: 667269287}
   plushies: []
