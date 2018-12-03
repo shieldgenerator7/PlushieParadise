@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour
                 plushie.GetComponent<Rigidbody2D>().velocity = throwVector;
             }
         }
+        checkPlushieCalling();
     }
 
     public bool hasPlushies()
@@ -238,5 +239,22 @@ public class PlayerController : MonoBehaviour
             }
         }
         return true;
+    }
+
+    void checkPlushieCalling()
+    {
+        for (int i = 0; i < 4 && i < plushies.Count; i++)
+        {
+            if (Input.GetButtonDown("Call Plushie " + (i + 1)))
+            {
+                lastUsedPlushieIndex = i;
+                Rigidbody2D plushieRB2D = plushies[lastUsedPlushieIndex].GetComponent<Rigidbody2D>();
+                plushieRB2D.velocity = Vector2.zero;
+                plushieRB2D.angularVelocity = 0;
+                plushies[lastUsedPlushieIndex].transform.position = plushieSpawnPoint.transform.position;
+                //Queue this plushie up to be the next one called or thrown
+                lastUsedPlushieIndex = (i - 1 + plushies.Count) % plushies.Count;
+            }
+        }
     }
 }
