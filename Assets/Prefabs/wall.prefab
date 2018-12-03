@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4876796537117778}
   - component: {fileID: 212697145843089110}
-  - component: {fileID: 68329716404262646}
   m_Layer: 0
   m_Name: wall
   m_TagString: Untagged
@@ -41,26 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &68329716404262646
-EdgeCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1383011699084148}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -5.211154, y: 2.7348938}
-  - {x: 5.231866, y: 2.7261963}
-  - {x: 5.21443, y: -2.6826212}
-  - {x: -5.1987414, y: -2.7185364}
-  - {x: -5.2335353, y: 2.7088463}
 --- !u!212 &212697145843089110
 SpriteRenderer:
   m_ObjectHideFlags: 1
