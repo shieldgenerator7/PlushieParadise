@@ -80,14 +80,15 @@ public class Squishie : MonoBehaviour
             }
             //Add the object's collision point to the appropriate list
             Vector2 dir = rch2d.point;
+            float allowance = 0.05f;
             if (upDown)
             {
                 if (rch2d.point.y < transform.position.y
-                    && rch2d.collider.bounds.max.y < transform.position.y)
+                    && rch2d.collider.bounds.max.y <= coll2d.bounds.min.y + allowance)
                 {
                     belowLeftDirs.Add(dir.y);
                 }
-                else if (rch2d.collider.bounds.min.y > transform.position.y)
+                else if (rch2d.collider.bounds.min.y >= coll2d.bounds.max.y - allowance)
                 {
                     aboveRightDirs.Add(dir.y);
                 }
@@ -95,11 +96,11 @@ public class Squishie : MonoBehaviour
             else
             {
                 if (rch2d.point.x < transform.position.x
-                    && rch2d.collider.bounds.max.x < transform.position.x)
+                    && rch2d.collider.bounds.max.x < coll2d.bounds.min.x + allowance)
                 {
                     belowLeftDirs.Add(dir.x);
                 }
-                else if (rch2d.collider.bounds.min.y > transform.position.y)
+                else if (rch2d.collider.bounds.min.x > coll2d.bounds.max.x - allowance)
                 {
                     aboveRightDirs.Add(dir.x);
                 }
