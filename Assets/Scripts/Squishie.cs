@@ -196,31 +196,33 @@ public class Squishie : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Spikes"))
         {
-            if (collision.GetContact(0).point.y <= coll2d.bounds.min.y + 0.05f)
+            GameObject spikes = collision.gameObject;
+            if (collision.GetContact(0).point.y <= coll2d.bounds.min.y + overlapAllowance)
             {
                 onSpikes = true;
+                //Set spikePosition so the sprite will move there over time
+                spikePosition = spikes.transform.position +
+                    (Vector3.up * (2 * spikes.GetComponent<Collider2D>().bounds.size.y / 6));
+                spikePosition.x = collision.GetContact(0).point.x;
+                //Check to see if they can stand on them
                 if (!canStandOnSpikes)
                 {
-                    spikeKill(collision.gameObject, collision.GetContact(0).point);
+                    spikeKill();
                 }
             }
         }
         else if (onSpikes)
         {
-            if (collision.GetContact(0).point.y >= coll2d.bounds.max.y)
+            if (collision.GetContact(0).point.y >= coll2d.bounds.max.y - overlapAllowance)
             {
-                spikeKill(collision.gameObject, collision.GetContact(0).point);
+                spikeKill();
             }
         }
     }
 
-    void spikeKill(GameObject spikes, Vector2 contactPoint)
+    void spikeKill()
     {
         kill();
         coll2d.enabled = true;
-        //Set spikePosition so the sprite will move there over time
-        spikePosition = spikes.transform.position + 
-            (Vector3.up * (spikes.GetComponent<Collider2D>().bounds.size.y / 4));
-        spikePosition.x = contactPoint.x;
     }
 }
