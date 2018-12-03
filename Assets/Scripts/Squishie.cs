@@ -10,6 +10,8 @@ public class Squishie : MonoBehaviour
     public float squishTolerancePercent = 0.7f;//what percent of its height it can get to before being squished
     [Range(0, 1)]
     public float squishResistance = 0;//what percent of the squish it can resist
+    [Range(0, 1)]
+    public float overlapAllowance = 0.1f;//used to keep side swipes from crushing
 
     //Runtime constants
     private Vector3 originalSize;
@@ -103,28 +105,31 @@ public class Squishie : MonoBehaviour
             }
             //Add the object's collision point to the appropriate list
             Vector2 dir = rch2d.point;
-            float allowance = 0.05f;
             if (upDown)
             {
                 if (rch2d.point.y < transform.position.y
-                    && rch2d.collider.bounds.max.y <= coll2d.bounds.min.y + allowance)
+                    && rch2d.collider.bounds.max.y <= coll2d.bounds.min.y + overlapAllowance)
                 {
+                    dir.y = Mathf.Max(dir.y, rch2d.collider.bounds.max.y);
                     belowLeftDirs.Add(dir.y);
                 }
-                else if (rch2d.collider.bounds.min.y >= coll2d.bounds.max.y - allowance)
+                else if (rch2d.collider.bounds.min.y >= coll2d.bounds.max.y - overlapAllowance)
                 {
+                    dir.y = Mathf.Min(dir.y, rch2d.collider.bounds.min.y);
                     aboveRightDirs.Add(dir.y);
                 }
             }
             else
             {
                 if (rch2d.point.x < transform.position.x
-                    && rch2d.collider.bounds.max.x < coll2d.bounds.min.x + allowance)
+                    && rch2d.collider.bounds.max.x < coll2d.bounds.min.x + overlapAllowance)
                 {
+                    dir.x = Mathf.Max(dir.x, rch2d.collider.bounds.max.x);
                     belowLeftDirs.Add(dir.x);
                 }
-                else if (rch2d.collider.bounds.min.x > coll2d.bounds.max.x - allowance)
+                else if (rch2d.collider.bounds.min.x > coll2d.bounds.max.x - overlapAllowance)
                 {
+                    dir.x = Mathf.Min(dir.x, rch2d.collider.bounds.min.x);
                     aboveRightDirs.Add(dir.x);
                 }
             }
