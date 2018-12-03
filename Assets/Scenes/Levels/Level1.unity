@@ -2238,7 +2238,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4991836902452582, guid: 99095eb14360edc4cbfe9c7264648090, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 4991836902452582, guid: 99095eb14360edc4cbfe9c7264648090, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2267,6 +2267,10 @@ Prefab:
     - target: {fileID: 1826776305873382, guid: 99095eb14360edc4cbfe9c7264648090, type: 2}
       propertyPath: m_Name
       value: tile_floor (118)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991836902452582, guid: 99095eb14360edc4cbfe9c7264648090, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99095eb14360edc4cbfe9c7264648090, type: 2}
