@@ -1848,6 +1848,21 @@ Prefab:
       propertyPath: m_Name
       value: red plushie bear
       objectReference: {fileID: 0}
+    - target: {fileID: 212849895375066752, guid: 4e4dbc18e31cc814581a4e1acb677d26,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.9150943
+      objectReference: {fileID: 0}
+    - target: {fileID: 212849895375066752, guid: 4e4dbc18e31cc814581a4e1acb677d26,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.30647027
+      objectReference: {fileID: 0}
+    - target: {fileID: 212849895375066752, guid: 4e4dbc18e31cc814581a4e1acb677d26,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.30647027
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e4dbc18e31cc814581a4e1acb677d26, type: 2}
   m_IsPrefabAsset: 0
