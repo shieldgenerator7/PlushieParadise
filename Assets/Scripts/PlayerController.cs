@@ -215,6 +215,12 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 RaycastHit2D rch2d = horizontalCastHits[i];
+                //Don't process trigger colliders
+                if (rch2d.collider.isTrigger)
+                {
+                    continue;
+                }
+                //Process rigidbodies
                 Rigidbody2D rchRb2d = rch2d.collider.gameObject.GetComponent<Rigidbody2D>();
                 //If the object ahead is static,
                 if (!rchRb2d)
