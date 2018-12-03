@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetButton("Fire1"))
         {
-            if (plushies.Count > 0)
+            if (hasPlushies())
             {
                 if (Input.GetButtonDown("Fire1"))
                 {
@@ -114,14 +114,14 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetButtonUp("Fire1"))
         {
-            if (plushies.Count > 0)
+            if (hasPlushies())
             {
                 plushies[lastUsedPlushieIndex].GetComponent<BoxCollider2D>().enabled = true;
             }
         }
         else if (Input.GetButtonDown("Fire2"))
         {
-            if (plushies.Count > 0)
+            if (hasPlushies())
             {
                 lastUsedPlushieIndex = getNextPlushieIndex();
                 GameObject plushie = plushies[lastUsedPlushieIndex];
@@ -131,6 +131,25 @@ public class PlayerController : MonoBehaviour
                 plushie.GetComponent<Rigidbody2D>().velocity = throwVector;
             }
         }
+    }
+
+    public bool hasPlushies()
+    {
+        if (plushies.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            foreach (GameObject plushie in plushies)
+            {
+                if (plushie.GetComponent<Squishie>().Alive)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public int getNextPlushieIndex()
