@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float jumpForce;
     private float jumpStartTime;
     private bool grounded = true;
+    private RaycastHit2D[] horizontalCastHits = new RaycastHit2D[10];
 
     [SerializeField]
     private List<GameObject> plushies = new List<GameObject>();
@@ -61,7 +62,11 @@ public class PlayerController : MonoBehaviour
         }
         //Player controls
         float horizontal = Input.GetAxis("Horizontal");
-        rb2d.velocity = new Vector2(horizontal * movementSpeed, rb2d.velocity.y);
+        //Check to make sure you can move
+        if (canMove(Vector2.right * horizontal, 0.01f))
+        {
+            rb2d.velocity = new Vector2(horizontal * movementSpeed, rb2d.velocity.y);
+        }
         //Flip sprite
         if (horizontal != 0)
         {
@@ -177,5 +182,29 @@ public class PlayerController : MonoBehaviour
                 break;
             }
         }
+    }
+
+    bool canMove(Vector2 direction, float distance)
+    {
+        int count = coll2d.Cast(direction, horizontalCastHits, distance, true);
+        if (count == 0)
+        {
+            return true;
+        }
+        else
+        {
+            for (int i = 0; i < count; i++)
+            {
+                RaycastHit2D rch2d = horizontalCastHits[i];
+                Rigidbody2D rchRb2d = rch2d.collider.gameObject.GetComponent<Rigidbody2D>();
+                //If the object ahead is static,
+                if (!rchRb2d)
+                {
+                    //then you can't move
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
