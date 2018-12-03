@@ -71,14 +71,17 @@ public class GameManager : MonoBehaviour
         PlayerController pc = GameObject.FindObjectOfType<PlayerController>();
         //Keep player from stock piling duplicate plushies
         NewPlushie newPlushie = GameObject.FindObjectOfType<NewPlushie>();
-        foreach (Plushie plushie in GameObject.FindObjectsOfType<Plushie>())
+        if (newPlushie)
         {
-            if (plushie.gameObject != newPlushie.gameObject)
+            foreach (Plushie plushie in GameObject.FindObjectsOfType<Plushie>())
             {
-                if (plushie.Equals(newPlushie.GetComponent<Plushie>()))
+                if (plushie.gameObject != newPlushie.gameObject)
                 {
-                    pc.removePlushie(plushie);
-                    Destroy(plushie.gameObject);
+                    if (plushie.Equals(newPlushie.GetComponent<Plushie>()))
+                    {
+                        pc.removePlushie(plushie);
+                        Destroy(plushie.gameObject);
+                    }
                 }
             }
         }
