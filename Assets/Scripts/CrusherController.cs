@@ -42,7 +42,12 @@ public class CrusherController : PoweredObject
         Squishie squishie = go.GetComponent<Squishie>();
         if (squishie)
         {
-            squishie.checkSquish(triggerColl, true);
+            //If the squishie is in direction of travel
+            if (Mathf.Sign((squishie.transform.position - transform.position).y) == ((Active) ? 1 : -1))
+            {
+                //check to see if it gets squished
+                squishie.checkSquish(triggerColl, true);
+            }
         }
     }
 }
