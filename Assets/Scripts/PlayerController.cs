@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Settings
+    public bool debugMode = false;
     public float movementSpeed = 3;
     public float jumpHeight = 2.1f;//how high she can jump
     public float jumpDuration = 0.5f;//how long it takes her to get to max jump height
@@ -45,6 +46,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (debugMode)
+        {
+            baseJumpForce = (jumpHeight * jumpForceModifier) * (jumpHeight / jumpDuration);
+        }
         //Admin controls
         if (Input.GetButtonDown("Reset") && !NameUpdater.updatingName())
         {

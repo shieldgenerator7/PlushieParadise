@@ -507,10 +507,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4f511ba8420c84887d36bbc5d31b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  debugMode: 0
+  movementSpeed: 4
   jumpHeight: 2.1
-  jumpDuration: 0.75
-  jumpForceModifier: 1.1
+  jumpDuration: 0.5
+  jumpForceModifier: 0.8
   throwDirection: {x: 1, y: 1}
   throwForce: 3
   plushieSpawnPoint: {fileID: 1671367014}
