@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [Range(-1,10)]
+    [Range(-1, 10)]
     public int firstLevelIndex = 1;
     public string firstLevelName = "Level1";
     public GameObject plushiePen;
@@ -54,5 +54,35 @@ public class GameManager : MonoBehaviour
         {
             plushie.transform.position = plushiePen.transform.position;
         }
+    }
+
+    public static void resetLevel()
+    {
+        loadNextLevel(instance.currentLevelName);
+        //Add delegate for things that need the scene to be already loaded
+        SceneManager.sceneLoaded += instance.continueResetLevel;
+        //Reset player settings if need be
+        PlayerController pc = GameObject.FindObjectOfType<PlayerController>();
+        pc.resetPlayer();
+    }
+
+    void continueResetLevel(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        PlayerController pc = GameObject.FindObjectOfType<PlayerController>();
+        //Keep player from stock piling duplicate plushies
+        NewPlushie newPlushie = GameObject.FindObjectOfType<NewPlushie>();
+        foreach (Plushie plushie in GameObject.FindObjectsOfType<Plushie>())
+        {
+            if (plushie.gameObject != newPlushie.gameObject)
+            {
+                if (plushie.Equals(newPlushie.GetComponent<Plushie>()))
+                {
+                    pc.removePlushie(plushie);
+                    Destroy(plushie.gameObject);
+                }
+            }
+        }
+        //Remove delegate
+        SceneManager.sceneLoaded -= continueResetLevel;
     }
 }

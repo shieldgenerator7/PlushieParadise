@@ -527,6 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523d9898e53ba6047ae30dd6e072f528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredToContinue: 0
   squishTolerancePercent: 0.7
 --- !u!1 &916914339
 GameObject:

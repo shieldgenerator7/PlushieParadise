@@ -44,7 +44,7 @@ public class NameUpdater : MonoBehaviour
 
     void acceptName(string name)
     {
-        plushie.name = name;
+        plushie.GetComponent<Plushie>().givenName = name;
         //Canvas
         inputField.text = "";
         messageText.text = originalMessage;

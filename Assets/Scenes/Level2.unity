@@ -622,6 +622,7 @@ GameObject:
   - component: {fileID: 773709016}
   - component: {fileID: 773709015}
   - component: {fileID: 773709019}
+  - component: {fileID: 773709020}
   m_Layer: 0
   m_Name: green plushie bear
   m_TagString: Plushie
@@ -744,6 +745,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf5569a53e16564c9c15791cd98122a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &773709020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 773709014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adea230fca1d369468845ed428cc6b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeName: green plushie bear
+  givenName: 
 --- !u!1001 &890514629
 Prefab:
   m_ObjectHideFlags: 0
