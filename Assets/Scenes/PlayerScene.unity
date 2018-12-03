@@ -510,7 +510,7 @@ MonoBehaviour:
   movementSpeed: 5
   jumpHeight: 2.1
   jumpDuration: 0.75
-  jumpForceModifier: 1.5
+  jumpForceModifier: 1.1
   throwDirection: {x: 1, y: 1}
   throwForce: 3
   plushieSpawnPoint: {fileID: 1671367014}
