@@ -55,4 +55,13 @@ public class NameUpdater : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    /// <summary>
+    /// Returns true when the game is in the middle of naming a new plushie
+    /// </summary>
+    /// <returns></returns>
+    public static bool updatingName()
+    {
+        return instance.plushieRevealStar.activeInHierarchy;
+    }
+
 }

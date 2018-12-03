@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Admin controls
-        if (Input.GetButtonDown("Reset"))
+        if (Input.GetButtonDown("Reset") && !NameUpdater.updatingName())
         {
             GameManager.resetLevel();
         }
@@ -53,9 +53,10 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
-        if (!squishie.Alive)
+        if (!squishie.Alive || NameUpdater.updatingName())
         {
             //don't process player controls if not alive
+            //or if you are currently updating a name
             return;
         }
         //Player controls
