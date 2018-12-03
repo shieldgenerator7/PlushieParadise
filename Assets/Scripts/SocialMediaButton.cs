@@ -9,6 +9,10 @@ public abstract class SocialMediaButton : MonoBehaviour
     public Sprite mouseOverSprite;
     public Sprite clickSprite;
 
+    public static string GAME_NAME = "Plushy Piler";
+    public static string GAME_HASHTAG = "#plushypiler";
+    public static string GAME_LINK = "ldjam.com";
+
     private SpriteRenderer sr;
 
     // Use this for initialization
