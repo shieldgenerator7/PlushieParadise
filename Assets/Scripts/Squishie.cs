@@ -8,6 +8,8 @@ public class Squishie : MonoBehaviour
 
     [Range(0, 1)]
     public float squishTolerancePercent = 0.7f;//what percent of its height it can get to before being squished
+    [Range(0, 1)]
+    public float squishResistance = 0;//what percent of the squish it can resist
 
     //Runtime constants
     private Vector2 originalSize;
@@ -67,6 +69,8 @@ public class Squishie : MonoBehaviour
             }
             if (percent < 1)
             {
+                //Factor in squish resistance
+                percent = percent + ((1 - percent) * squishResistance);
                 //Squish
                 if (upDown) {
                     Vector3 scale = transform.localScale;

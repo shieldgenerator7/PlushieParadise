@@ -529,6 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredToContinue: 0
   squishTolerancePercent: 0.7
+  squishResistance: 0
 --- !u!1 &916914339
 GameObject:
   m_ObjectHideFlags: 0
