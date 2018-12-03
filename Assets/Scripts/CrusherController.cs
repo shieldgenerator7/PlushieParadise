@@ -42,7 +42,7 @@ public class CrusherController : PoweredObject
         Squishie squishie = go.GetComponent<Squishie>();
         if (squishie)
         {
-            squishie.squish(triggerColl, true);
+            squishie.checkSquish(triggerColl, true);
         }
     }
 }

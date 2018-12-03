@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Squishie : MonoBehaviour
 {
+    public bool requiredToContinue = false;//true if its death would cause the game to end
 
     [Range(0, 1)]
     public float squishTolerancePercent = 0.7f;//what percent of its height it can get to before being squished
@@ -18,7 +19,7 @@ public class Squishie : MonoBehaviour
         originalSize = transform.localScale;
     }
 
-    public void squish(Collider2D impendingColl, bool upDown)
+    public void checkSquish(Collider2D impendingColl, bool upDown)
     {
         List<float> aboveRightDirs = new List<float>();
         List<float> belowLeftDirs = new List<float>();
@@ -60,6 +61,7 @@ public class Squishie : MonoBehaviour
                 Vector3 scale = transform.localScale;
                 scale.y *= percent;
                 transform.localScale = scale;
+                checkSquish(scale.y);
             }
         }
     }
@@ -67,6 +69,7 @@ public class Squishie : MonoBehaviour
     {
         RaycastHit2D[] rch2ds = new RaycastHit2D[10];
         int count = coll2d.Cast(direction, rch2ds, distance, true);
+        Debug.Log("count: " + count + ", dir: " + direction * distance);
         for (int i = 0; i < count; i++)
         {
             RaycastHit2D rch2d = rch2ds[i];
@@ -100,6 +103,23 @@ public class Squishie : MonoBehaviour
                 {
                     aboveRightDirs.Add(dir.x);
                 }
+            }
+        }
+    }
+
+    private void checkSquish(float sizeY)
+    {
+        if (sizeY < originalSize.y * squishTolerancePercent)
+        {
+            coll2d.enabled = false;
+            Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+            rb2d.isKinematic = true;
+            rb2d.velocity = Vector2.zero;
+            rb2d.angularVelocity = 0;
+            rb2d.gravityScale = 0;
+            if (requiredToContinue)
+            {
+                Time.timeScale = 0;
             }
         }
     }
