@@ -29,12 +29,14 @@ public class PlayerController : MonoBehaviour
     //Components
     private Rigidbody2D rb2d;
     private Collider2D coll2d;
+    private Squishie squishie;
 
     // Use this for initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         coll2d = GetComponent<Collider2D>();
+        squishie = GetComponent<Squishie>();
         //Set base jump force
         baseJumpForce = (jumpHeight * jumpForceModifier) * (jumpHeight / jumpDuration);
     }
@@ -42,6 +44,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Admin controls
+        if (Input.GetButtonDown("Reset"))
+        {
+            GameManager.resetLevel();
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        if (!squishie.Alive)
+        {
+            //don't process player controls if not alive
+            return;
+        }
+        //Player controls
         float horizontal = Input.GetAxis("Horizontal");
         rb2d.velocity = new Vector2(horizontal * movementSpeed, rb2d.velocity.y);
         //Flip sprite
@@ -108,14 +125,6 @@ public class PlayerController : MonoBehaviour
                 plushie.GetComponent<Rigidbody2D>().velocity = throwVector;
             }
         }
-        if (Input.GetButtonDown("Reset"))
-        {
-            GameManager.resetLevel();
-        }
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
     }
 
     public void addPlushie(GameObject plushie)
@@ -135,13 +144,8 @@ public class PlayerController : MonoBehaviour
     }
     public void resetPlayer()
     {
-        rb2d.gravityScale = 1;
-        rb2d.isKinematic = false;
         grounded = true;
-        coll2d.enabled = true;
-        Vector3 scale = transform.localScale;
-        scale.y = 1;
-        transform.localScale = scale;
+        squishie.resetAlive();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -9,7 +9,15 @@ public class Squishie : MonoBehaviour
     [Range(0, 1)]
     public float squishTolerancePercent = 0.7f;//what percent of its height it can get to before being squished
 
+    //Runtime constants
     private Vector2 originalSize;
+    //Runtime vars
+    private bool alive = true;
+    public bool Alive
+    {
+        get { return alive; }
+        private set { alive = value; }
+    }
 
     private Collider2D coll2d;
 
@@ -118,10 +126,26 @@ public class Squishie : MonoBehaviour
             rb2d.velocity = Vector2.zero;
             rb2d.angularVelocity = 0;
             rb2d.gravityScale = 0;
+            alive = false;
             if (requiredToContinue)
             {
                 Time.timeScale = 0;
             }
+        }
+    }
+    public void resetAlive()
+    {
+        coll2d.enabled = true;
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        rb2d.isKinematic = false;
+        rb2d.gravityScale = 1;
+        alive = true;
+        Vector3 scale = transform.localScale;
+        scale.y = 1;
+        transform.localScale = scale;
+        if (requiredToContinue)
+        {
+            Time.timeScale = 1;
         }
     }
 }
