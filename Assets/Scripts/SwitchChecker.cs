@@ -42,14 +42,26 @@ public class SwitchChecker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Pressed = true;
+        if (collision.gameObject.GetComponent<Rigidbody2D>()
+            && !collision.gameObject.GetComponent<CrusherController>())
+        {
+            Pressed = true;
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Pressed = true;
+        if (collision.gameObject.GetComponent<Rigidbody2D>()
+               && !collision.gameObject.GetComponent<CrusherController>())
+        {
+            Pressed = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Pressed = false;
+        if (collision.gameObject.GetComponent<Rigidbody2D>()
+               && !collision.gameObject.GetComponent<CrusherController>())
+        {
+            Pressed = false;
+        }
     }
 }

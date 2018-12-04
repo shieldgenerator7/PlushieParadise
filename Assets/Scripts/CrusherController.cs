@@ -6,6 +6,9 @@ public class CrusherController : PoweredObject
 {
 
     public float moveSpeed = 1;
+    public float powerDownDelay = 0;
+
+    private float powerDownTime = 0;
 
     public Collider2D triggerColl;
 
@@ -17,25 +20,59 @@ public class CrusherController : PoweredObject
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        if (powerDownTime > 0)
+        {
+            if (Time.time > powerDownTime + powerDownDelay)
+            {
+                powerDownTime = 0;
+                rb2d.velocity = Vector2.up * moveSpeed * ((Active) ? 1 : -1);
+            }
+        }
+    }
 
     protected override void updateActiveState()
     {
-        rb2d.velocity = Vector2.up * moveSpeed * ((Active) ? 1 : -1);
+        if (!Active && powerDownDelay > 0)
+        {
+            powerDownTime = Time.time;
+        }
+        else
+        {
+            rb2d.velocity = Vector2.up * moveSpeed * ((Active) ? 1 : -1);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        checkSquishie(collision.gameObject);
-        rb2d.velocity = Vector2.up * moveSpeed * ((Active) ? 1 : -1);
+        if (collidesWithCrushTrigger(collision))
+        {
+            checkSquishie(collision.gameObject);
+        }
+        updateActiveState();
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        checkSquishie(collision.gameObject);
-        rb2d.velocity = Vector2.up * moveSpeed * ((Active) ? 1 : -1);
+        if (collidesWithCrushTrigger(collision))
+        {
+            checkSquishie(collision.gameObject);
+        }
+        updateActiveState();
+    }
+    bool collidesWithCrushTrigger(Collider2D coll)
+    {
+        RaycastHit2D[] rch2ds = new RaycastHit2D[10];
+        int count = triggerColl.Cast(Vector2.zero, rch2ds, 0, true);
+        for (int i = 0; i < count; i++)
+        {
+            if (rch2ds[i].collider == coll)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     void checkSquishie(GameObject go)
     {
