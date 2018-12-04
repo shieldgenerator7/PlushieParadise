@@ -27,7 +27,7 @@ public class Squishie : MonoBehaviour
         get { return alive; }
         private set { alive = value; }
     }
-    private bool onSpikes = false;
+    public bool onSpikes = false;
     private Vector2 spikePosition;
 
     private Collider2D coll2d;
@@ -217,6 +217,13 @@ public class Squishie : MonoBehaviour
             {
                 spikeKill();
             }
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Spikes"))
+        {
+            onSpikes = false;
         }
     }
 

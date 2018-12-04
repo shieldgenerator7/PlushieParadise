@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
                     Rigidbody2D plushieRB2D = plushies[lastUsedPlushieIndex].GetComponent<Rigidbody2D>();
                     plushieRB2D.velocity = Vector2.zero;
                     plushieRB2D.angularVelocity = 0;
+                    plushies[lastUsedPlushieIndex].GetComponent<Squishie>().onSpikes = false;
                 }
                 plushies[lastUsedPlushieIndex].transform.position = plushieSpawnPoint.transform.position;
             }
@@ -136,6 +137,7 @@ public class PlayerController : MonoBehaviour
                 Vector2 throwVector = throwDirection * throwForce;
                 throwVector.x *= transform.localScale.x;
                 plushie.GetComponent<Rigidbody2D>().velocity = throwVector;
+                plushies[lastUsedPlushieIndex].GetComponent<Squishie>().onSpikes = false;
             }
         }
         checkPlushieCalling();
@@ -252,6 +254,7 @@ public class PlayerController : MonoBehaviour
                 plushieRB2D.velocity = Vector2.zero;
                 plushieRB2D.angularVelocity = 0;
                 plushies[lastUsedPlushieIndex].transform.position = plushieSpawnPoint.transform.position;
+                plushies[lastUsedPlushieIndex].GetComponent<Squishie>().onSpikes = false;
                 //Queue this plushie up to be the next one called or thrown
                 lastUsedPlushieIndex = (i - 1 + plushies.Count) % plushies.Count;
             }
