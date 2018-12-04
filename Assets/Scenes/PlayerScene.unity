@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0308324a090311c4aa2a5cdf28d7d716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevelIndex: 8
+  firstLevelIndex: 1
   firstLevelName: Level1
   plushiePen: {fileID: 2023230993}
 --- !u!4 &146963465
@@ -625,6 +625,7 @@ MonoBehaviour:
   squishResistance: 0
   overlapAllowance: 0.1
   canStandOnSpikes: 0
+  onSpikes: 0
 --- !u!1 &916914339
 GameObject:
   m_ObjectHideFlags: 0

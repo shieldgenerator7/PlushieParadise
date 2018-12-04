@@ -11,7 +11,7 @@ public abstract class SocialMediaButton : MonoBehaviour
 
     public static string GAME_NAME = "Plushy Piler";
     public static string GAME_HASHTAG = "#plushypiler";
-    public static string GAME_LINK = "ldjam.com";
+    public static string GAME_LINK = "https://ldjam.com/events/ludum-dare/43/plushie-piler";
 
     private SpriteRenderer sr;
 
