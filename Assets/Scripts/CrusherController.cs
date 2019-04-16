@@ -55,6 +55,7 @@ public class CrusherController : PoweredObject
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log(">>>collision object:lo: " + collision.gameObject);
         if (collidesWithCrushTrigger(collision))
         {
             checkSquishie(collision.gameObject);

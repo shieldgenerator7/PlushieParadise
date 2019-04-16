@@ -96,8 +96,10 @@ public class GameManager : MonoBehaviour
         NewPlushie newPlushie = GameObject.FindObjectOfType<NewPlushie>();
         if (newPlushie)
         {
+            Debug.Log("newPlushie: " + newPlushie.name);
             foreach (Plushie plushie in GameObject.FindObjectsOfType<Plushie>())
             {
+                Debug.Log("plushie: " + plushie.name);
                 if (plushie.gameObject != newPlushie.gameObject)
                 {
                     if (plushie.Equals(newPlushie.GetComponent<Plushie>()))

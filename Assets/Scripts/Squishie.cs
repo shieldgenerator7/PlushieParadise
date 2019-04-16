@@ -57,6 +57,7 @@ public class Squishie : MonoBehaviour
         float distanceToCheck = 1.0f;
         checkDirection(upDown, ref aboveRightDirs, ref belowLeftDirs, Vector2.up, distanceToCheck);
         checkDirection(upDown, ref aboveRightDirs, ref belowLeftDirs, -Vector2.up, distanceToCheck);
+        Debug.Log("aboveRight: " + aboveRightDirs.Count + ", belowLeft: " + belowLeftDirs.Count);
         //If only pushing in one direction
         if (aboveRightDirs.Count == 0 || belowLeftDirs.Count == 0)
         {
@@ -65,6 +66,7 @@ public class Squishie : MonoBehaviour
         else
         {
             //We're squished and need to reduce size
+            Debug.Log("We're squished! squisher: " + impendingColl.name);
             //Find min and max of the area we can be in
             float min = belowLeftDirs[0];
             float max = aboveRightDirs[0];
@@ -86,11 +88,15 @@ public class Squishie : MonoBehaviour
             {
                 percent = Mathf.Abs(max - min) / originalBoundsSize.x;
             }
+            Debug.Log("Pre-Resist Percent: " + percent + ", min: " + min + ", max: " + max
+                + ", diff: " + Mathf.Abs(max - min) + ", size: " + originalBoundsSize);
+
             if (percent < 1)
             {
                 //Factor in squish resistance
                 float currentPercent = transform.localScale.y / originalSize.y;
                 percent = Mathf.Lerp(percent, currentPercent, squishResistance);
+                Debug.Log("Percent: " + percent + ", min: " + min + ", max: " + max);
                 //Squish
                 if (upDown)
                 {
@@ -126,6 +132,13 @@ public class Squishie : MonoBehaviour
             Vector2 dir = rch2d.point;
             if (upDown)
             {
+                Debug.Log("object: " + rch2d.collider.name
+                    + ": rch2d.y: " + rch2d.point.y
+                    + ", my y: " + transform.position.y
+                    + ", dir: " + direction * distance);
+                Debug.Log(">>>"
+                    + " rch coll: (" + rch2d.collider.bounds.min.y + ", " + rch2d.collider.bounds.max.y + ")"
+                    + ", coll2d: (" + coll2d.bounds.min.y + ", " + coll2d.bounds.max.y + ")");
                 if (rch2d.point.y < transform.position.y
                     && rch2d.collider.bounds.max.y <= coll2d.bounds.min.y + overlapAllowance)
                 {
@@ -197,6 +210,7 @@ public class Squishie : MonoBehaviour
         if (collision.gameObject.CompareTag("Spikes"))
         {
             GameObject spikes = collision.gameObject;
+            Debug.Log("Colliding with spikes");
             if (collision.GetContact(0).point.y <= coll2d.bounds.min.y + overlapAllowance)
             {
                 onSpikes = true;
